@@ -1,1 +1,743 @@
-# cads-website
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CADS – Community Access & Development Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #1a3a2a;
+    --green-mid: #2d6a4f;
+    --green-light: #52b788;
+    --green-pale: #d8f3dc;
+    --gold: #c9a84c;
+    --cream: #f8f5ee;
+    --text: #1a2e22;
+    --text-light: #4a6357;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 6%;
+    background: rgba(26,58,42,0.95);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none; font-size: 0.9rem; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--green-dark) !important;
+    padding: 0.55rem 1.4rem; border-radius: 3px; font-weight: 600 !important;
+    transition: background 0.3s !important;
+  }
+  .nav-cta:hover { background: #e0b957 !important; color: var(--green-dark) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--green-dark) 0%, #0e2419 60%, #1a3a2a 100%);
+    display: flex; align-items: center;
+    padding: 6rem 6% 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -20%; right: -10%;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,183,136,0.15) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -10%; left: 20%;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+  }
+  .hero-content { max-width: 680px; position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold); padding: 0.4rem 1rem;
+    border-radius: 30px; font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.8rem;
+    opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5.5vw, 5rem);
+    font-weight: 900; line-height: 1.05;
+    color: var(--white); margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.6s 0.4s forwards;
+  }
+  .hero h1 em { font-style: normal; color: var(--green-light); }
+  .hero p {
+    font-size: 1.15rem; line-height: 1.75;
+    color: rgba(255,255,255,0.7); max-width: 520px;
+    margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 0.6s 0.6s forwards;
+  }
+  .hero-buttons {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.6s 0.8s forwards;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--green-dark);
+    padding: 0.9rem 2rem; border-radius: 4px;
+    font-size: 0.95rem; font-weight: 600; text-decoration: none;
+    transition: all 0.3s; letter-spacing: 0.02em;
+  }
+  .btn-primary:hover { background: #e0b957; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
+  .btn-secondary {
+    background: transparent; color: var(--white);
+    padding: 0.9rem 2rem; border-radius: 4px; border: 1.5px solid rgba(255,255,255,0.3);
+    font-size: 0.95rem; font-weight: 500; text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover { border-color: var(--green-light); color: var(--green-light); }
+
+  .hero-stats {
+    position: absolute; bottom: 3rem; right: 6%;
+    display: flex; gap: 3rem; z-index: 2;
+    opacity: 0; animation: fadeUp 0.6s 1s forwards;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700; color: var(--gold);
+    display: block; line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.75rem; color: rgba(255,255,255,0.5);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    display: block; margin-top: 0.3rem;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 6rem 6%; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--green-mid); margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 700; line-height: 1.15; color: var(--text);
+    margin-bottom: 1.2rem;
+  }
+  .section-sub {
+    font-size: 1.05rem; line-height: 1.7;
+    color: var(--text-light); max-width: 560px;
+  }
+
+  /* ── PROBLEM ── */
+  .problem-section {
+    background: var(--green-dark); color: var(--white);
+    position: relative; overflow: hidden;
+  }
+  .problem-section .section-label { color: var(--green-light); }
+  .problem-section .section-title { color: var(--white); }
+  .problem-section .section-sub { color: rgba(255,255,255,0.65); }
+  .problem-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; margin-top: 3.5rem; align-items: start;
+  }
+  .problem-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .problem-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-left: 3px solid var(--gold);
+    padding: 1.2rem 1.5rem; border-radius: 4px;
+  }
+  .problem-card p { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.6; }
+  .impact-box {
+    background: rgba(82,183,136,0.12);
+    border: 1px solid rgba(82,183,136,0.25);
+    border-radius: 8px; padding: 2rem;
+  }
+  .impact-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; color: var(--green-light); margin-bottom: 1.2rem;
+  }
+  .impact-item {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .impact-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green-light); margin-top: 7px; flex-shrink: 0;
+  }
+  .impact-item p { color: rgba(255,255,255,0.75); font-size: 0.92rem; line-height: 1.6; }
+
+  /* ── MODEL ── */
+  .model-section { background: var(--cream); }
+  .model-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem; margin-top: 3.5rem;
+  }
+  .model-card {
+    border-radius: 8px; padding: 2.5rem;
+    position: relative; overflow: hidden;
+  }
+  .model-card.npc {
+    background: var(--green-pale);
+    border: 1px solid rgba(45,106,79,0.2);
+  }
+  .model-card.pty {
+    background: var(--green-dark); color: var(--white);
+  }
+  .model-tag {
+    display: inline-block;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.3rem 0.8rem;
+    border-radius: 2px; margin-bottom: 1.2rem;
+  }
+  .model-card.npc .model-tag { background: var(--green-mid); color: var(--white); }
+  .model-card.pty .model-tag { background: var(--gold); color: var(--green-dark); }
+  .model-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; margin-bottom: 0.5rem;
+  }
+  .model-card.npc h3 { color: var(--green-dark); }
+  .model-card.pty h3 { color: var(--white); }
+  .model-card .sub {
+    font-size: 0.85rem; margin-bottom: 1.5rem;
+  }
+  .model-card.npc .sub { color: var(--text-light); }
+  .model-card.pty .sub { color: rgba(255,255,255,0.6); }
+  .model-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .model-list li {
+    display: flex; align-items: flex-start; gap: 0.7rem;
+    font-size: 0.9rem; line-height: 1.55;
+  }
+  .model-card.npc .model-list li { color: var(--text); }
+  .model-card.pty .model-list li { color: rgba(255,255,255,0.8); }
+  .model-list li::before {
+    content: '→'; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+  }
+  .model-card.npc .model-list li::before { color: var(--green-mid); }
+  .model-card.pty .model-list li::before { color: var(--gold); }
+
+  /* ── PIPELINE ── */
+  .pipeline-section { background: var(--white); }
+  .pipeline { margin-top: 3.5rem; display: flex; flex-direction: column; gap: 0; }
+  .pipeline-step {
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 0 2rem; align-items: stretch;
+  }
+  .step-num-col {
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .step-num {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--green-dark); color: var(--white);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-line {
+    width: 2px; background: var(--green-pale);
+    flex: 1; margin: 6px 0;
+  }
+  .pipeline-step:last-child .step-line { display: none; }
+  .step-content {
+    background: var(--cream); border-radius: 8px;
+    padding: 1.5rem 2rem; margin-bottom: 1.2rem;
+    border: 1px solid rgba(45,106,79,0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .step-content:hover {
+    border-color: var(--green-light);
+    box-shadow: 0 4px 20px rgba(82,183,136,0.12);
+  }
+  .step-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--text); margin-bottom: 0.4rem;
+  }
+  .step-content p { font-size: 0.9rem; color: var(--text-light); line-height: 1.6; }
+
+  /* ── BENEFICIARIES ── */
+  .beneficiaries-section { background: var(--green-pale); }
+  .bene-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .bene-card {
+    background: var(--white); border-radius: 8px;
+    padding: 2rem 1.5rem; text-align: center;
+    border: 1px solid rgba(45,106,79,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .bene-card:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(45,106,79,0.12); }
+  .bene-icon {
+    font-size: 2.2rem; margin-bottom: 1rem; display: block;
+  }
+  .bene-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--text); margin-bottom: 0.4rem;
+  }
+  .bene-card p { font-size: 0.82rem; color: var(--text-light); line-height: 1.5; }
+
+  /* ── OUTCOMES ── */
+  .outcomes-section { background: var(--white); }
+  .outcomes-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; margin-top: 3rem;
+  }
+  .outcome-card {
+    padding: 2rem;
+    border-top: 3px solid var(--green-mid);
+    background: var(--cream); border-radius: 0 0 8px 8px;
+  }
+  .outcome-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--text); margin-bottom: 0.6rem;
+  }
+  .outcome-card p { font-size: 0.88rem; color: var(--text-light); line-height: 1.6; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--green-dark) 0%, #0d2218 100%);
+    text-align: center; padding: 7rem 6%;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,183,136,0.1) 0%, transparent 70%);
+  }
+  .cta-section .section-label { color: var(--green-light); }
+  .cta-section .section-title { color: var(--white); margin: 0 auto 1rem; }
+  .cta-section .section-sub { color: rgba(255,255,255,0.65); margin: 0 auto 2.5rem; }
+  .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 2; }
+
+  /* ── CONTACT ── */
+  .contact-section { background: var(--cream); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; }
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text); letter-spacing: 0.04em; }
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 0.8rem 1rem; border-radius: 4px;
+    border: 1.5px solid rgba(45,106,79,0.2);
+    background: var(--white); font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem; color: var(--text);
+    transition: border-color 0.3s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--green-mid);
+  }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .btn-submit {
+    background: var(--green-dark); color: var(--white);
+    padding: 0.9rem 2rem; border: none; border-radius: 4px;
+    font-size: 0.95rem; font-weight: 600; cursor: pointer;
+    transition: all 0.3s; font-family: 'DM Sans', sans-serif;
+    align-self: flex-start;
+  }
+  .btn-submit:hover { background: var(--green-mid); transform: translateY(-2px); }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; padding-top: 1rem; }
+  .contact-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--text); margin-bottom: 1rem;
+  }
+  .info-item { display: flex; align-items: flex-start; gap: 1rem; }
+  .info-icon {
+    width: 40px; height: 40px; background: var(--green-dark);
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .info-text p:first-child { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.2rem; }
+  .info-text p:last-child { font-size: 0.88rem; color: var(--text-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text); color: rgba(255,255,255,0.6);
+    padding: 3rem 6%; text-align: center;
+  }
+  footer .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700; color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  footer .logo span { color: var(--gold); }
+  footer p { font-size: 0.82rem; line-height: 1.6; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 5%; }
+    .nav-links { display: none; }
+    .hero { padding: 5rem 5% 5rem; }
+    .hero-stats { display: none; }
+    .problem-grid, .model-grid, .contact-grid { grid-template-columns: 1fr; }
+    .bene-grid { grid-template-columns: 1fr 1fr; }
+    .outcomes-grid { grid-template-columns: 1fr; }
+    .pipeline-step { grid-template-columns: 50px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">CADS<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#model">Our Model</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#beneficiaries">Who We Help</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span>🌱</span> South Africa's Small Business Gateway
+    </div>
+    <h1>Turning <em>Funding Dreams</em> Into Reality</h1>
+    <p>Community Access & Development Services bridges the gap between South African entrepreneurs and the funding they deserve — through education, compliance support, and structured application services.</p>
+    <div class="hero-buttons">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0zw0dtWZCBt0pwtHgOmGkE2q-crmV4e9zqkpgdyoVfdRwSQ/viewform?usp=header" target="_blank" class="btn-primary">Apply for Support</a>
+      <a href="#model" class="btn-secondary">How It Works</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">2-Tier</span>
+      <span class="stat-label">Operational Model</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">5-Step</span>
+      <span class="stat-label">Support Pipeline</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Committed</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem-section">
+  <p class="section-label">The Challenge</p>
+  <h2 class="section-title">Why Small Businesses<br>Miss Out on Funding</h2>
+  <p class="section-sub">Despite available government and private funding, most small enterprises in South Africa fail to secure it — not because they lack potential, but preparation.</p>
+  <div class="problem-grid">
+    <div class="problem-cards">
+      <div class="problem-card"><p>❌ <strong>Lack of compliance</strong> — CIPC, SARS, CSD registrations not in order</p></div>
+      <div class="problem-card"><p>❌ <strong>Poor financial documentation</strong> — statements, projections not properly prepared</p></div>
+      <div class="problem-card"><p>❌ <strong>Limited understanding</strong> — entrepreneurs unaware of funding requirements</p></div>
+      <div class="problem-card"><p>❌ <strong>Weak business structures</strong> — plans and governance not investor-ready</p></div>
+    </div>
+    <div class="impact-box">
+      <h3>The Ripple Effect</h3>
+      <div class="impact-item"><div class="impact-dot"></div><p>Funding institutions overwhelmed by unqualified applications</p></div>
+      <div class="impact-item"><div class="impact-dot"></div><p>Entrepreneurs discouraged after repeated rejection cycles</p></div>
+      <div class="impact-item"><div class="impact-dot"></div><p>Economic growth and job creation slowed across communities</p></div>
+      <div class="impact-item" style="margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid rgba(82,183,136,0.2)">
+        <div class="impact-dot" style="background:var(--gold)"></div>
+        <p style="color:rgba(255,255,255,0.9)"><strong>CADS exists to break this cycle</strong> — one entrepreneur at a time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODEL -->
+<section class="model-section" id="model">
+  <p class="section-label">Our Innovation</p>
+  <h2 class="section-title">The CADS Two-Tier Model</h2>
+  <p class="section-sub">We combine community-level reach with professional-grade support through two complementary arms that work in tandem.</p>
+  <div class="model-grid">
+    <div class="model-card npc">
+      <span class="model-tag">Community Arm</span>
+      <h3>CADS NPC</h3>
+      <p class="sub">Non-Profit Community Outreach</p>
+      <ul class="model-list">
+        <li>Conducts outreach, workshops, and awareness campaigns</li>
+        <li>Screens and identifies potential entrepreneurs</li>
+        <li>Provides basic guidance and education</li>
+        <li>Builds trust and access in underserved communities</li>
+      </ul>
+    </div>
+    <div class="model-card pty">
+      <span class="model-tag">Commercial Arm</span>
+      <h3>CADS Group Pty Ltd</h3>
+      <p class="sub">Professional Funding Support Services</p>
+      <ul class="model-list">
+        <li>Conducts detailed funding readiness assessments</li>
+        <li>Supports compliance and documentation</li>
+        <li>Prepares and submits funding applications</li>
+        <li>Provides ongoing tracking and support</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PIPELINE -->
+<section class="pipeline-section" id="process">
+  <p class="section-label">Implementation</p>
+  <h2 class="section-title">Our 5-Step Pipeline</h2>
+  <p class="section-sub">Every client moves through a structured, end-to-end process designed to maximise their chance of funding success.</p>
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="step-num-col">
+        <div class="step-num">01</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h4>Outreach & Awareness</h4>
+        <p>Community workshops and campaigns that educate entrepreneurs on funding opportunities and requirements.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num-col">
+        <div class="step-num">02</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h4>Screening & Qualification</h4>
+        <p>Basic business readiness checks to identify viable candidates who are ready to move forward in the process.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num-col">
+        <div class="step-num">03</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h4>Funding Readiness Assessment</h4>
+        <p>In-depth evaluation of compliance status, financial documentation, and overall business viability.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num-col">
+        <div class="step-num">04</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h4>Business Support Services</h4>
+        <p>Hands-on support including compliance fixing, business documentation, and application preparation.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num-col">
+        <div class="step-num">05</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h4>Funding Application & Support</h4>
+        <p>Submission to relevant funders with ongoing tracking and support until a decision is reached.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICIARIES -->
+<section class="beneficiaries-section" id="beneficiaries">
+  <p class="section-label">Who We Serve</p>
+  <h2 class="section-title">Built for Every Entrepreneur</h2>
+  <p class="section-sub">From the spaza shop owner to the ambitious startup founder — CADS is for anyone ready to take their business to the next level.</p>
+  <div class="bene-grid">
+    <div class="bene-card">
+      <span class="bene-icon">🏪</span>
+      <h4>Small Businesses</h4>
+      <p>Both informal and formal small enterprises looking to grow with the right funding.</p>
+    </div>
+    <div class="bene-card">
+      <span class="bene-icon">🚀</span>
+      <h4>Startups</h4>
+      <p>New ventures seeking their first round of funding to turn ideas into reality.</p>
+    </div>
+    <div class="bene-card">
+      <span class="bene-icon">🌍</span>
+      <h4>Youth & Township Entrepreneurs</h4>
+      <p>Young founders and township-based businesses often overlooked by traditional systems.</p>
+    </div>
+    <div class="bene-card">
+      <span class="bene-icon">🔄</span>
+      <h4>Previously Rejected</h4>
+      <p>Businesses that have been turned down before and need structured guidance to succeed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="outcomes-section">
+  <p class="section-label">Expected Impact</p>
+  <h2 class="section-title">What We Aim to Achieve</h2>
+  <p class="section-sub">Our work is measured by real, tangible changes in the South African small business landscape.</p>
+  <div class="outcomes-grid">
+    <div class="outcome-card">
+      <h4>📈 More Funding-Ready Businesses</h4>
+      <p>A growing pool of compliant, well-documented businesses ready to access capital.</p>
+    </div>
+    <div class="outcome-card">
+      <h4>📝 Higher Quality Applications</h4>
+      <p>Professionally prepared submissions that meet funder expectations and standards.</p>
+    </div>
+    <div class="outcome-card">
+      <h4>✅ Improved Approval Rates</h4>
+      <p>Better-prepared businesses naturally lead to higher rates of successful funding.</p>
+    </div>
+    <div class="outcome-card">
+      <h4>🌱 Stronger Business Ecosystem</h4>
+      <p>A more resilient and interconnected small business community across South Africa.</p>
+    </div>
+    <div class="outcome-card">
+      <h4>💼 Job Creation</h4>
+      <p>Funded businesses grow — creating employment and driving economic participation.</p>
+    </div>
+    <div class="outcome-card">
+      <h4>♻️ Self-Sustaining Model</h4>
+      <p>Cross-subsidization between the NPC and Pty Ltd ensures long-term programme viability.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <p class="section-label" style="position:relative;z-index:2">Partner With Us</p>
+  <h2 class="section-title" style="max-width:600px;position:relative;z-index:2">Ready to Support South Africa's Entrepreneurs?</h2>
+  <p class="section-sub" style="position:relative;z-index:2">CADS seeks partnerships with funding institutions, sponsors for community workshops, and strategic collaborators committed to growing the small business sector.</p>
+  <div class="cta-buttons">
+    <a href="#contact" class="btn-primary">Partner With CADS</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0zw0dtWZCBt0pwtHgOmGkE2q-crmV4e9zqkpgdyoVfdRwSQ/viewform?usp=header" target="_blank" class="btn-secondary" style="border-color:rgba(255,255,255,0.3); color:var(--white)">Apply for Funding Support</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <p class="section-label">Get in Touch</p>
+  <h2 class="section-title">Let's Start the Conversation</h2>
+  <p class="section-sub">Whether you're an entrepreneur seeking support, a funder looking for qualified applicants, or a potential partner — we'd love to hear from you.</p>
+  <div class="contact-grid">
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label>FULL NAME</label>
+        <input type="text" placeholder="Your full name" required>
+      </div>
+      <div class="form-group">
+        <label>EMAIL ADDRESS</label>
+        <input type="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label>I AM A...</label>
+        <select>
+          <option value="">Select your profile</option>
+          <option>Small Business Owner</option>
+          <option>Startup Founder</option>
+          <option>Funding Institution</option>
+          <option>Potential Partner / Sponsor</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>MESSAGE</label>
+        <textarea placeholder="Tell us about your situation or enquiry..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Send Message →</button>
+    </form>
+    <div class="contact-info">
+      <div>
+        <h3>Community Access &amp; Development Services</h3>
+        <p style="font-size:0.9rem;color:var(--text-light);line-height:1.7">CADS is committed to transforming the funding landscape for small businesses in South Africa through education, compliance support, and structured access to capital.</p>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div class="info-text">
+          <p>Location</p>
+          <p>South Africa</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📧</div>
+        <div class="info-text">
+          <p>Email</p>
+          <p>info.cads.gp@gmail.com</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">🌐</div>
+        <div class="info-text">
+          <p>Services</p>
+          <p>Funding Readiness · Compliance · Application Support</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">CADS<span>.</span></div>
+  <p>Community Access & Development Services &nbsp;|&nbsp; CADS NPC & CADS Group Pty Ltd</p>
+  <p style="margin-top:0.4rem;font-size:0.75rem;opacity:0.4">© 2025 CADS. Empowering South African Entrepreneurs.</p>
+</footer>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.btn-submit');
+  btn.textContent = '✓ Message Sent!';
+  btn.style.background = 'var(--green-light)';
+  setTimeout(() => {
+    btn.textContent = 'Send Message →';
+    btn.style.background = 'var(--green-dark)';
+    e.target.reset();
+  }, 3000);
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.problem-card, .model-card, .step-content, .bene-card, .outcome-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
